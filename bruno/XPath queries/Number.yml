@@ -1,0 +1,33 @@
+info:
+  name: Number
+  type: http
+  seq: 1
+
+http:
+  method: QUERY
+  url: "{{baseUrl}}/plays/macbeth"
+  headers:
+    - name: Content-Type
+      value: text/plain
+  body:
+    type: text
+    data: count(//SPEECH[SPEAKER = 'MACBETH'])
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['content-type']
+      operator: contains
+      value: application/xml
+    - expression: res.body
+      operator: contains
+      value: type="number">146</r:results>
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

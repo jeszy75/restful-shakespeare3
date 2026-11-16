@@ -1,0 +1,36 @@
+info:
+  name: Preflight for PUT with Authorization
+  type: http
+  seq: 3
+
+http:
+  method: OPTIONS
+  url: "{{baseUrl}}/users/{{username}}/bookmarks/1"
+  headers:
+    - name: Origin
+      value: https://example.org
+    - name: Access-Control-Request-Method
+      value: PUT
+    - name: Access-Control-Request-Headers
+      value: authorization
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['access-control-allow-methods']
+      operator: contains
+      value: PUT
+    - expression: res.headers['access-control-allow-headers']
+      operator: contains
+      value: authorization
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: Preflight requests never carry credentials, so they are answered without authentication. `Authorization` must be allowed explicitly.

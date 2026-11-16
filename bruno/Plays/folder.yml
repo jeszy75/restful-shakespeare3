@@ -1,0 +1,11 @@
+info:
+  name: Plays
+  type: folder
+  seq: 1
+
+request:
+  auth: inherit
+
+docs:
+  content: "Reading the plays and their parts. These resources are public: no authentication is needed. Clients navigate by following the `Link` header fields of the responses, starting at `/plays`."
+  type: text/markdown

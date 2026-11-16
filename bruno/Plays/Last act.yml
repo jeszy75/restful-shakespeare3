@@ -1,0 +1,35 @@
+info:
+  name: Last act
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: "{{baseUrl}}/plays/macbeth/acts/5"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const link = res.getHeader("link");
+
+        test("links to /plays/macbeth/acts/4 (prev)", function() {
+          expect(link).to.include('</plays/macbeth/acts/4>; rel="prev"');
+        });
+
+        test("has no next link", function() {
+          expect(link).to.not.include('rel="next"');
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: The last act has no `next` link.

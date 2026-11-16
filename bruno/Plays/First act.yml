@@ -1,0 +1,62 @@
+info:
+  name: First act
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: "{{baseUrl}}/plays/macbeth/acts/1"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const link = res.getHeader("link");
+
+        test("links to /plays/macbeth/acts/1 (self)", function() {
+          expect(link).to.include('</plays/macbeth/acts/1>; rel="self"');
+        });
+
+        test("links to /plays/macbeth (up)", function() {
+          expect(link).to.include('</plays/macbeth>; rel="up"');
+        });
+
+        test("links to /plays/macbeth/acts/1 (first)", function() {
+          expect(link).to.include('</plays/macbeth/acts/1>; rel="first"');
+        });
+
+        test("links to /plays/macbeth/acts/2 (next)", function() {
+          expect(link).to.include('</plays/macbeth/acts/2>; rel="next"');
+        });
+
+        test("links to /plays/macbeth/acts/5 (last)", function() {
+          expect(link).to.include('</plays/macbeth/acts/5>; rel="last"');
+        });
+
+        test("links to /plays/macbeth/acts/1/scenes/1 (item)", function() {
+          expect(link).to.include('</plays/macbeth/acts/1/scenes/1>; rel="item"');
+        });
+
+        test("links to /plays/macbeth/acts/1/scenes/7 (item)", function() {
+          expect(link).to.include('</plays/macbeth/acts/1/scenes/7>; rel="item"');
+        });
+
+        test("has no prev link", function() {
+          expect(link).to.not.include('rel="prev"');
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body
+      operator: contains
+      value: <TITLE>ACT I</TITLE>
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: The first act has no `prev` link.

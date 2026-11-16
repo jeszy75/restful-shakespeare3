@@ -1,0 +1,30 @@
+info:
+  name: Boolean
+  type: http
+  seq: 3
+
+http:
+  method: QUERY
+  url: "{{baseUrl}}/plays/macbeth/acts/1/scenes/1"
+  headers:
+    - name: Content-Type
+      value: text/plain
+  body:
+    type: text
+    data: count(SPEECH) > 5
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body
+      operator: contains
+      value: type="boolean">true</r:results>
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

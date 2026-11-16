@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <!-- 4.2 (Spring Framework 7.1) is the first version supporting the QUERY method -->
+        <version>4.2.0-RC1</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>hu.unideb.inf</groupId>
+    <artifactId>restful-shakespeare</artifactId>
+    <version>0.3.0-SNAPSHOT</version>
+    <name>RESTful Shakespeare</name>
+    <description>A hypermedia REST API serving the text of Shakespeare's plays in XML, with XPath queries via the HTTP QUERY method and bookmarks for authenticated users</description>
+
+    <properties>
+        <java.version>21</java.version>
+        <basex.version>12.4</basex.version>
+        <commons-text.version>1.15.0</commons-text.version>
+        <exec.mainClass>hu.unideb.inf.shakespeare.RestfulShakespeareApplication</exec.mainClass>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <!-- HTTP Basic authentication for the bookmarks -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.basex</groupId>
+            <artifactId>basex</artifactId>
+            <version>${basex.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>${commons-text.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- httpBasic(...) for MockMvc requests -->
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

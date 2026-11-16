@@ -1,0 +1,11 @@
+info:
+  name: Caching
+  type: folder
+  seq: 3
+
+request:
+  auth: inherit
+
+docs:
+  content: Responses carry `Cache-Control` and `Last-Modified`; conditional requests are answered with `304 Not Modified`.
+  type: text/markdown

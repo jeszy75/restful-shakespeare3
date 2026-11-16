@@ -1,0 +1,35 @@
+info:
+  name: Undeclared variable (422)
+  type: http
+  seq: 6
+
+http:
+  method: QUERY
+  url: "{{baseUrl}}/plays/macbeth"
+  headers:
+    - name: Content-Type
+      value: text/plain
+  body:
+    type: text
+    data: $x
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "422"
+    - expression: res.headers['content-type']
+      operator: contains
+      value: application/problem+xml
+    - expression: res.body
+      operator: contains
+      value: <status>422</status>
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: A syntactically correct XPath 1.0 expression that cannot be evaluated.

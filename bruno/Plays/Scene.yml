@@ -1,0 +1,36 @@
+info:
+  name: Scene
+  type: http
+  seq: 5
+
+http:
+  method: GET
+  url: "{{baseUrl}}/plays/macbeth/acts/1/scenes/1"
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const link = res.getHeader("link");
+
+        test("links to /plays/macbeth/acts/1/scenes/1/speeches/1 (item)", function() {
+          expect(link).to.include('</plays/macbeth/acts/1/scenes/1/speeches/1>; rel="item"');
+        });
+
+        test("links to /plays/macbeth/acts/1/scenes/1/speeches/10 (item)", function() {
+          expect(link).to.include('</plays/macbeth/acts/1/scenes/1/speeches/10>; rel="item"');
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body
+      operator: contains
+      value: A desert place
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

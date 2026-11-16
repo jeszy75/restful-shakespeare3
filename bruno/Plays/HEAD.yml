@@ -1,0 +1,30 @@
+info:
+  name: HEAD
+  type: http
+  seq: 7
+
+http:
+  method: HEAD
+  url: "{{baseUrl}}/plays/macbeth/acts/2"
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['content-type']
+      operator: contains
+      value: application/xml
+    - expression: res.headers['link']
+      operator: isDefined
+    - expression: res.body
+      operator: isEmpty
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: The same header fields as for GET, but no content.

@@ -1,0 +1,11 @@
+info:
+  name: Bookmarks
+  type: folder
+  seq: 5
+
+request:
+  auth: inherit
+
+docs:
+  content: "Creating, reading, changing and deleting bookmarks, as the user given by the `username` and `password` variables (HTTP Basic authentication, configured for the collection). Run the requests in this order: the URI of the new bookmark is saved into the `bookmarkUri` runtime variable."
+  type: text/markdown

@@ -1,0 +1,11 @@
+info:
+  name: CORS and security headers
+  type: folder
+  seq: 7
+
+request:
+  auth: inherit
+
+docs:
+  content: "Cross-Origin Resource Sharing: Bruno is not a browser, so it does not enforce CORS, but it can send the requests that browsers send, and check the response header fields."
+  type: text/markdown

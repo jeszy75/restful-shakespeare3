@@ -1,0 +1,35 @@
+info:
+  name: Not XPath 1.0 (400)
+  type: http
+  seq: 5
+
+http:
+  method: QUERY
+  url: "{{baseUrl}}/plays/macbeth"
+  headers:
+    - name: Content-Type
+      value: text/plain
+  body:
+    type: text
+    data: for $speech in //SPEECH return $speech
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "400"
+    - expression: res.headers['content-type']
+      operator: contains
+      value: application/problem+xml
+    - expression: res.body
+      operator: contains
+      value: <status>400</status>
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: Only XPath 1.0 expressions are accepted, so XQuery (here a FLWOR expression) is rejected.

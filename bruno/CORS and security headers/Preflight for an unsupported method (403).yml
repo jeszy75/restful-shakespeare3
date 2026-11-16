@@ -1,0 +1,26 @@
+info:
+  name: Preflight for an unsupported method (403)
+  type: http
+  seq: 4
+
+http:
+  method: OPTIONS
+  url: "{{baseUrl}}/plays/macbeth"
+  headers:
+    - name: Origin
+      value: https://example.org
+    - name: Access-Control-Request-Method
+      value: PATCH
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "403"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

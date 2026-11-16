@@ -1,0 +1,28 @@
+info:
+  name: Note in the wrong format (415)
+  type: http
+  seq: 9
+
+http:
+  method: POST
+  url: "{{baseUrl}}/plays/macbeth/acts/1/bookmark"
+  headers:
+    - name: Content-Type
+      value: application/xml
+  body:
+    type: text
+    data: <note>Notes must be plain text</note>
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "415"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

@@ -1,0 +1,11 @@
+info:
+  name: XPath queries
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit
+
+docs:
+  content: "The QUERY method (RFC 10008): the content of the request is an XPath 1.0 expression (`text/plain`), evaluated with the target resource as the context item. The result is wrapped into an `r:results` element."
+  type: text/markdown

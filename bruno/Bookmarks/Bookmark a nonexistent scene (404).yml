@@ -1,0 +1,34 @@
+info:
+  name: Bookmark a nonexistent scene (404)
+  type: http
+  seq: 8
+
+http:
+  method: POST
+  url: "{{baseUrl}}/plays/macbeth/acts/1/scenes/9/bookmark"
+  headers:
+    - name: Content-Type
+      value: text/plain
+  body:
+    type: text
+    data: There is no such scene
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "404"
+    - expression: res.headers['content-type']
+      operator: contains
+      value: application/problem+xml
+    - expression: res.body
+      operator: contains
+      value: <status>404</status>
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

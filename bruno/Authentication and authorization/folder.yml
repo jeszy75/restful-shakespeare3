@@ -1,0 +1,11 @@
+info:
+  name: Authentication and authorization
+  type: folder
+  seq: 6
+
+request:
+  auth: inherit
+
+docs:
+  content: "HTTP Basic authentication (RFC 7617): `401 Unauthorized` without valid credentials, `403 Forbidden` for the bookmarks of another user."
+  type: text/markdown

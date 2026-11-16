@@ -1,0 +1,30 @@
+info:
+  name: Replace the note (204)
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: "{{baseUrl}}{{bookmarkUri}}"
+  headers:
+    - name: Content-Type
+      value: text/plain
+  body:
+    type: text
+    data: All hail, Macbeth, that shalt be king hereafter!
+  auth: inherit
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "204"
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: The `text/plain` representation of a bookmark is its note, so PUT replaces the note.

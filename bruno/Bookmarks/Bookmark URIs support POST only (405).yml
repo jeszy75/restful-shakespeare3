@@ -1,0 +1,30 @@
+info:
+  name: Bookmark URIs support POST only (405)
+  type: http
+  seq: 10
+
+http:
+  method: GET
+  url: "{{baseUrl}}/plays/macbeth/acts/1/bookmark"
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "405"
+    - expression: res.headers['content-type']
+      operator: contains
+      value: application/problem+xml
+    - expression: res.body
+      operator: contains
+      value: <status>405</status>
+    - expression: res.headers['allow']
+      operator: contains
+      value: POST
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

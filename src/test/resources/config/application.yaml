@@ -1,0 +1,8 @@
+# Configuration for the tests. Spring Boot reads classpath:/config/application.yaml
+# after classpath:/application.yaml, so these properties override those of
+# src/main/resources/application.yaml (and only these).
+shakespeare:
+  bookmarks:
+    # Every Spring application context of the tests gets its own, new
+    # bookmarks database (${random.uuid} is a random UUID).
+    dbpath: target/test-data/${random.uuid}

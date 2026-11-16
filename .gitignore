@@ -1,0 +1,9 @@
+target/
+# The bookmarks database (shakespeare.bookmarks.dbpath)
+data/
+.idea/
+*.iml
+.vscode/
+.classpath
+.project
+.settings/

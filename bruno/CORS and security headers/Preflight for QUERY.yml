@@ -1,0 +1,32 @@
+info:
+  name: Preflight for QUERY
+  type: http
+  seq: 2
+
+http:
+  method: OPTIONS
+  url: "{{baseUrl}}/plays/macbeth"
+  headers:
+    - name: Origin
+      value: https://example.org
+    - name: Access-Control-Request-Method
+      value: QUERY
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['access-control-allow-origin']
+      operator: eq
+      value: "*"
+    - expression: res.headers['access-control-allow-methods']
+      operator: contains
+      value: QUERY
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

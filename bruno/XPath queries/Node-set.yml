@@ -1,0 +1,39 @@
+info:
+  name: Node-set
+  type: http
+  seq: 4
+
+http:
+  method: QUERY
+  url: "{{baseUrl}}/plays/macbeth/acts/1/scenes/3"
+  headers:
+    - name: Content-Type
+      value: text/plain
+  body:
+    type: text
+    data: SPEECH[SPEAKER = 'BANQUO']/LINE[1]
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("returns the first lines of the 12 speeches of Banquo", function() {
+          expect(res.getBody().match(/<LINE>/g)).to.have.lengthOf(12);
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.body
+      operator: contains
+      value: type="node-set"
+    - expression: res.body
+      operator: contains
+      value: <LINE>How far is't call'd to Forres? What are these</LINE>
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

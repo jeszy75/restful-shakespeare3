@@ -1,0 +1,11 @@
+info:
+  name: Errors
+  type: folder
+  seq: 4
+
+request:
+  auth: inherit
+
+docs:
+  content: Errors are reported as problem details (RFC 9457) in XML (`application/problem+xml`).
+  type: text/markdown

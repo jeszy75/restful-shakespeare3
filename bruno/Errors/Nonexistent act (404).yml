@@ -1,0 +1,30 @@
+info:
+  name: Nonexistent act (404)
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: "{{baseUrl}}/plays/macbeth/acts/6"
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "404"
+    - expression: res.headers['content-type']
+      operator: contains
+      value: application/problem+xml
+    - expression: res.body
+      operator: contains
+      value: <status>404</status>
+    - expression: res.body
+      operator: contains
+      value: <instance>/plays/macbeth/acts/6</instance>
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true

@@ -1,0 +1,42 @@
+info:
+  name: Get the bookmark
+  type: http
+  seq: 2
+
+http:
+  method: GET
+  url: "{{baseUrl}}{{bookmarkUri}}"
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        const link = res.getHeader("link");
+
+        test("links to itself and to the bookmarks of the user", function() {
+          expect(link).to.include(`<${bru.getVar("bookmarkUri")}>; rel="self"`);
+          expect(link).to.include(`<${bru.getVar("bookmarkUri").replace(/\/\d+$/, "")}>; rel="collection"`);
+        });
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['content-type']
+      operator: contains
+      value: application/xml
+    - expression: res.body
+      operator: contains
+      value: <note>The prophecy of the witches</note>
+    - expression: res.headers['cache-control']
+      operator: contains
+      value: no-store
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: Bookmarks are personal, so the responses must not be cached (`no-store`).

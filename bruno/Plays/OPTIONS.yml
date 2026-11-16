@@ -1,0 +1,35 @@
+info:
+  name: OPTIONS
+  type: http
+  seq: 8
+
+http:
+  method: OPTIONS
+  url: "{{baseUrl}}/plays/macbeth/acts/2"
+
+runtime:
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "200"
+    - expression: res.headers['allow']
+      operator: contains
+      value: GET
+    - expression: res.headers['allow']
+      operator: contains
+      value: HEAD
+    - expression: res.headers['allow']
+      operator: contains
+      value: QUERY
+    - expression: res.headers['allow']
+      operator: notContains
+      value: POST
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: The `Allow` header field lists the supported methods.

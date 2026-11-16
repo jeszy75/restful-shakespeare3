@@ -1,0 +1,42 @@
+info:
+  name: Create a bookmark (201)
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: "{{baseUrl}}/plays/macbeth/acts/1/scenes/3/bookmark"
+  headers:
+    - name: Content-Type
+      value: text/plain
+  body:
+    type: text
+    data: The prophecy of the witches
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: after-response
+      code: bru.setVar("bookmarkUri", res.getHeader("location"));
+  assertions:
+    - expression: res.status
+      operator: eq
+      value: "201"
+    - expression: res.headers['location']
+      operator: matches
+      value: ^/users/[^/]+/bookmarks/\d+$
+    - expression: res.headers['content-type']
+      operator: contains
+      value: application/xml
+    - expression: res.body
+      operator: contains
+      value: <target>/plays/macbeth/acts/1/scenes/3</target>
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: true
+
+docs: POST to the URI linked from the scene with the bookmark link relation type. The content is the note (`text/plain`). The URI of the new bookmark (`Location`) is saved into the `bookmarkUri` runtime variable.

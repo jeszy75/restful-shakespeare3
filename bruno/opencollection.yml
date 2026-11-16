@@ -1,0 +1,61 @@
+opencollection: 1.0.0
+
+info:
+  name: RESTful Shakespeare
+config:
+  proxy:
+    inherit: true
+    config:
+      protocol: http
+      hostname: ""
+      port: ""
+      auth:
+        username: ""
+        password: ""
+      bypassProxy: ""
+
+request:
+  auth:
+    type: basic
+    username: "{{username}}"
+    password: "{{password}}"
+
+docs:
+  content: |-
+    # RESTful Shakespeare
+
+    Requests for trying out and testing the RESTful Shakespeare API (see the README of the project).
+
+    ## Setup
+
+    1. Start the server, e.g., with `mvn spring-boot:run` in the project directory.
+    2. Select the **Local** environment. `baseUrl` is `http://localhost:8080`.
+    3. Set the secret variables of the environment: `username` and `password`, e.g., `alice` and `wonderland`, or `bob` and `builder`. Bruno does not write the values of secret variables into the environment file, so they are not committed to Git.
+
+    With the Bruno CLI, run the following command in the collection directory, and give the secret variables on the command line:
+
+    ```bash
+    bru run . -r --env Local --env-var username=alice --env-var password=wonderland
+    ```
+
+    ## Authentication
+
+    The collection uses HTTP Basic authentication with the `username` and `password` variables. Requests that need authentication inherit it (`auth: inherit`); the others send no credentials.
+
+    ## Folders
+
+    * **Plays**: navigation with links, HEAD and OPTIONS.
+    * **XPath queries**: the QUERY method.
+    * **Caching**: conditional GET (304).
+    * **Errors**: problem details.
+    * **Bookmarks**: POST, GET, PUT and DELETE. Run the requests in order: they use the `bookmarkUri` runtime variable.
+    * **Authentication and authorization**: 401 and 403.
+    * **CORS and security headers**.
+
+    Running the whole collection (the Runner, or `bru run`) executes the folders and requests in order.
+  type: text/markdown
+bundled: false
+extensions:
+  bruno:
+    presets:
+      defaultEnvironment: Local

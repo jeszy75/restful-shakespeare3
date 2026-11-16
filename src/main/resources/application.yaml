@@ -1,0 +1,24 @@
+shakespeare:
+  # Comma-separated identifiers of the plays; play "id" is read from id.xml.
+  plays: macbeth
+  cache:
+    # How long caches may reuse a response without revalidating it.
+    # 0 means "Cache-Control: no-cache" (always revalidate; good for showing
+    # conditional requests and 304 responses), e.g., 1h means
+    # "Cache-Control: public, max-age=3600".
+    max-age: 0s
+  query:
+    # Evaluations of XPath expressions sent with QUERY are stopped after this.
+    time-limit: 5s
+  bookmarks:
+    # The directory of the BaseX databases, where the "bookmarks" database is
+    # stored (relative to the working directory, e.g., the project directory).
+    dbpath: data
+
+server:
+  tomcat:
+    # Tomcat's default limit for response headers is 8 KB. The largest scene of
+    # Macbeth (Act IV, Scene III, 65 speeches) needs about 4.4 KB of Link header
+    # fields, but longer plays need more: e.g., Act II, Scene II of Hamlet
+    # (164 speeches) would need about 11 KB.
+    max-http-response-header-size: 32KB
